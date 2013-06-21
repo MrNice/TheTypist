@@ -1,0 +1,25 @@
+body {
+  font-family: courier;
+  font-size: 25px;
+}
+
+#selector {
+  color: #FFCB00;
+  background: #FFF8DD;
+  font-size: 52px;
+}
+
+#typed {
+  color: #0F4DA8;
+  background: #DEEAFC;
+  font-style: bold;
+}
+
+#toDo{
+  color: #FF6400;
+  background: #FFEBDD;
+}
+
+#wrong{
+  background: #FF6666;
+}

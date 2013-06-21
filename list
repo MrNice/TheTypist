@@ -1,0 +1,26 @@
+BUGS:
+off by one on typing.
+off by one in action to start typing(onkey after click)
+stop iterating when a letter is wrongly typed.
+
+
+
+TODO:
+styling for the game./wireFrame
+Conditional formatting for each letter--- ?
+score for each, set a timer and stop a timer at end.(if all are correct.)
+graph of score
+
+LEARNED:
+when using blocks they are not sensitive to spacing in the dom.
+when using span they are sensitive to spacing known as 'inline'.
+Think in isolated problems:
+Think in terms of scoping and resources for each scoped issue.
+Keep an even keel for intake and output of coding execution/research.
+commit frequently.
+hold off on color for as long as possible because it is deceptive and gets in the way of the development.
+colors delicately used can be helpful
+
+
+OTHER:
+big key images that fade out after enlarging on the page.

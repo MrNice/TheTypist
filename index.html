@@ -1,0 +1,102 @@
+<html>
+<head>
+  <script src="library/HandleBars.js"></script>
+  <script src="library/jquery.js"></script>
+  <script src="library/underscore.js"></script>
+  <script src="library/backbone.js"></script>
+  <script src="library/style.css" type="style"></script>
+  <link rel="stylesheet" href="library/style.css" type="text/css">
+  <script src="library/Chart.js"></script>
+</head>
+<body>
+  <title>The Typist</title>
+<canvas id="myChart" width="400" height="400"></canvas>
+    <div id="start"><button id="beginning">click to begin</button>
+      <span id="first"></span></div>
+    <div id="go"><span id="typed"></span><span id="selector"></span><span id="toDo"></span></div>
+    <div id="fifth"></div>
+    <div id="sixth"></div>
+
+</body>
+<script>
+//Get the context of the canvas element we want to select
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var data = [
+  {
+    value : 30,
+    color: "#D97041"
+  },
+  {
+    value : 90,
+    color: "#C7604C"
+  },
+  {
+    value : 24,
+    color: "#21323D"
+  },
+  {
+    value : 58,
+    color: "#9D9B7F"
+  },
+  {
+    value : 82,
+    color: "#7D4F6D"
+  },
+  {
+    value : 8,
+    color: "#584A5E"
+  }
+]
+  var myNewChart = new Chart(ctx).PolarArea(data);
+  // //Get context with jQuery - using jQuery's .get() method.
+  // var ctx = $("#myChart").get(0).getContext("2d");
+  // //This will get the first returned node in the jQuery collection.
+  // var myNewChart = new Chart(ctx);
+  // new Chart(ctx).PolarArea(data,options);
+  // every key hit is stored value
+  // if value is equal to actual value then
+  // id diff for each value match.
+
+// // the delete button
+
+$('#beginning').click(function() {
+  var timeStart = $.now();
+  var snippet = 'quickly foxy moxie';
+  $('#fifth').html(snippet);
+  var i = 0;
+  $('body').keypress(function(event) {
+    $('#fifth').hide();
+    var selector = snippet[i];
+    var end = snippet.length;
+    var typed = snippet.slice(0,i);
+    var toDo = snippet.slice(i+1,end)
+
+    //checks one to the other
+    if(String.fromCharCode(event.which)!==snippet[i-1]) {
+    alert()
+    }
+
+    $('#selector').html(selector);
+    $('#typed').html(typed);
+    $('#toDo').html(toDo)
+    i++;
+
+    if(toDo == 0){
+      var stop = $.now();
+      var result = stop - timeStart;
+
+      //stop the result caching condition.(return?)
+      console.log(result)
+
+      $(document).ready(function(){
+        var plot1 = $.jqplot ('chart1', [[3,7,9,1,4,6,8,2,5]]);
+        $('body').append(plot1)
+      });
+    };
+  });
+});
+
+
+
+</script>
+</html>
