@@ -12,11 +12,12 @@
 <body>
   <title>The Typist</title>
   <canvas id="myChart"></canvas>
-    <div id="start"><button id="beginning">click to begin your typing challenge</button>
+    <div id="start"><button id="beginning">click to view your challenge</button><button id="next">click for your next challenge...</button>
       <span id="first"></span></div>
+      <div id="spaceBar"></div>
     <div id="go"><span id="typed"></span><span id="selector"></span><span id="toDo"></span></div>
     <div id="fifth"></div>
-    <div id="sixth"><p>Penalties...</p></div>
+    <div id="sixth"><p></p></div>
 </body>
 <script>
 
@@ -26,14 +27,17 @@ var labels = ["Start"];
 var penalty = 5;
 //CLICK TO BEGIN
 $('#beginning').click(function() {
-  
+  $('#spaceBar').html("press space bar to begin!")
+  $('#sixth p').html("Penalties...")
+
   var timeStart = $.now();
-  var snippet = "1234567891011121314151617181920";
+  var snippet = "var mode = func(params) {}; mode() if(object.arr[0] === 'turnary'){}";
+  var snippet2 = "hHh"
 
   //START WITH DEFAULT TEXT
-  $('#selector').html(selector);
-    $('#typed').html(typed);
-    $('#toDo').html(toDo)
+  // $('#selector').html(selector);
+  //   $('#typed').html(typed);
+  //   $('#toDo').html(toDo)
   $('#fifth').html(snippet);
   var i = 0;
   var keyHit = 0
@@ -50,7 +54,7 @@ $('#beginning').click(function() {
       $("#sixth p").append(error);
       keyHit+= 2;
     };
-    
+
     //RENDER SPANS ON EACH KEY
     $('#selector').html(selector);
     $('#typed').html(typed);
@@ -59,13 +63,12 @@ $('#beginning').click(function() {
 
     //END OF LINE - SO DO THIS STUFF:
     if(snippet[snippet.length] === selector){
-      console.log('selector reached end...')
-
       //CREATE LINE CHART
       var canvas = $("#myChart").get(0);
       var ctx = canvas.getContext("2d");
       ctx.width = canvas.width = 820;
       ctx.height = canvas.height = 155;
+      //DATA
       var config = {
         datasets : [
           {
@@ -88,8 +91,8 @@ $('#beginning').click(function() {
       //RECORD THE TIME STAMP SCORE
       var stop = $.now();
       var result = (stop - timeStart)/1000;
-      console.log(result)
-      console.log(keyHit)
+      console.log(result, "time/1000");
+      console.log(keyHit, "errors +3");
       //POST SCORE INTO DATA AS NEXT:
       data.push(result);
       console.log(data, 'dp')
@@ -101,9 +104,15 @@ $('#beginning').click(function() {
 
       //ISTANTIATE CHART
       var myNewChart = new Chart(ctx).Line(config,options);
+      //RESTART GAME - with new line of text:(same score);
     };
   });
 });
+
+// $('#next').click(function(){
+//   $('#fifth').append(snippet2);
+// }
+
 
 
 

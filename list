@@ -1,20 +1,29 @@
+//everytime I click the button after session,
+it doubles the depth in the charting, and increases constant.
+
+//reset penalties each time. 
+//how to remove the off by one at start.
+//how to open a new piece when ready.
+or do line by line.
+
+
+
 BUGS:
-finishes at fixed length no matter what the string
-off by one on typing.
+.number of errors increases after first function fires.
 
-off by one in action to start typing(onkey after click)
-
-can still type x after session completes
 stop iterating when a letter is wrongly typed.
 
 TODO:
+make the code 2.0 far better and functionality expertise!
+  then concerned about bugs and further functionality.
+
 organize and clean up the interface.
 - bootstrap?
 - divs with alignments.
 - put new text after the session completes.
 - change colors to be in harmony with theme
 - change size of fonts and containers
-
+- does not reset after each(errors cummulate), time adds too. maybe redifine it.
 
 LEARNED:
 when using blocks they are not sensitive to spacing in the dom.
@@ -26,7 +35,8 @@ commit frequently.
 hold off on color for as long as possible because it is deceptive and gets in the way of the development.
 colors delicately used can be helpful
 looking into library how the images are formed(in vector or other)
-
+**** holy shit: loose coupling is when there are no or very little dependencies from one function to another(less nesting). This makes it so that two places can call on the same function - ie: the coloring of span increments, on two seperate lines for two different runs, also call that function with a click event and also a typekey event in two seperate modules(concerns)! it's like the prototype drawing of circle pods in the key word this so that the entire abstraction is unique and expressive.
+**** also the modularity of the functions is key. Getting them to work as tightly packaged, and capable of taking in various parameters to continue  their functionality in multitudes of scenarios.
 
 
 OTHER:
