@@ -1,6 +1,7 @@
 <html>
 <head>
   <script src="library/HandleBars.js"></script>
+
   <script src="library/jquery.js"></script>
   <script src="library/underscore.js"></script>
   <script src="library/backbone.js"></script>
@@ -10,161 +11,96 @@
 </head>
 <body>
   <title>The Typist</title>
-  <canvas id="myChart2" width="400" height="400"></canvas>
-<canvas id="myChart" width="400" height="400"></canvas>
-    <div id="start"><button id="beginning">click to begin</button>
+  <canvas id="myChart"></canvas>
+    <div id="start"><button id="beginning">click to begin your typing challenge</button>
       <span id="first"></span></div>
     <div id="go"><span id="typed"></span><span id="selector"></span><span id="toDo"></span></div>
     <div id="fifth"></div>
-    <div id="sixth"></div>
-
+    <div id="sixth"><p>Penalties...</p></div>
 </body>
 <script>
 
-//LINE CHART begins:
-// var ctx = document.getElementById("myChart2").getContext("2d");
-var ctx = $("#myChart").get(0).getContext("2d");
-
-var data = {
-  labels : ["January","February","March","April","May","June","July"],
-  datasets : [
-    {
-      fillColor : "rgba(220,220,220,0.5)",
-      strokeColor : "rgba(220,220,220,1)",
-      pointColor : "rgba(220,220,220,1)",
-      pointStrokeColor : "#fff",
-      data : [65,59,90,81,56,55,40]
-    },
-    {
-      fillColor : "rgba(151,187,205,0.5)",
-      strokeColor : "rgba(151,187,205,1)",
-      pointColor : "rgba(151,187,205,1)",
-      pointStrokeColor : "#fff",
-      data : [28,48,40,19,96,27,100]
-    }
-  ]
-}
-
-// Line.defaults
-var options = {
-  //Boolean - If we show the scale above the chart data     
-  scaleOverlay : false,
-  
-  //Boolean - If we want to override with a hard coded scale
-  scaleOverride : false,
-  
-  //** Required if scaleOverride is true **
-  //Number - The number of steps in a hard coded scale
-  scaleSteps : null,
-  //Number - The value jump in the hard coded scale
-  scaleStepWidth : null,
-  //Number - The scale starting value
-  scaleStartValue : null,
-
-  //String - Colour of the scale line 
-  scaleLineColor : "rgba(0,0,0,.1)",
-  
-  //Number - Pixel width of the scale line  
-  scaleLineWidth : 1,
-
-  //Boolean - Whether to show labels on the scale 
-  scaleShowLabels : false,
-  
-  //Interpolated JS string - can access value
-  scaleLabel : "<%=value%>",
-  
-  //String - Scale label font declaration for the scale label
-  scaleFontFamily : "'Arial'",
-  
-  //Number - Scale label font size in pixels  
-  scaleFontSize : 12,
-  
-  //String - Scale label font weight style  
-  scaleFontStyle : "normal",
-  
-  //String - Scale label font colour  
-  scaleFontColor : "#666",  
-  
-  ///Boolean - Whether grid lines are shown across the chart
-  scaleShowGridLines : true,
-  
-  //String - Colour of the grid lines
-  scaleGridLineColor : "rgba(0,0,0,.05)",
-  
-  //Number - Width of the grid lines
-  scaleGridLineWidth : 1, 
-  
-  //Boolean - Whether the line is curved between points
-  bezierCurve : true,
-  
-  //Boolean - Whether to show a dot for each point
-  pointDot : true,
-  
-  //Number - Radius of each point dot in pixels
-  pointDotRadius : 3,
-  
-  //Number - Pixel width of point dot stroke
-  pointDotStrokeWidth : 1,
-  
-  //Boolean - Whether to show a stroke for datasets
-  datasetStroke : true,
-  
-  //Number - Pixel width of dataset stroke
-  datasetStrokeWidth : 2,
-  
-  //Boolean - Whether to fill the dataset with a colour
-  datasetFill : true,
-  
-  //Boolean - Whether to animate the chart
-  animation : true,
-
-  //Number - Number of animation steps
-  animationSteps : 60,
-  
-  //String - Animation easing effect
-  animationEasing : "easeOutQuart",
-
-  //Function - Fires when the animation is complete
-  onAnimationComplete : null
-  
-}
-var myNewChart = new Chart(ctx).Line(data,options);
-//LINE CHART ENDS
-
-//Functionality Begins:
+var data = [0];
+var dataPenalty = [0];
+var labels = ["Start"];
+var penalty = 5;
+//CLICK TO BEGIN
 $('#beginning').click(function() {
+  
   var timeStart = $.now();
-  var snippet = 'quickly foxy moxie';
+  var snippet = "1234567891011121314151617181920";
+
+  //START WITH DEFAULT TEXT
+  $('#selector').html(selector);
+    $('#typed').html(typed);
+    $('#toDo').html(toDo)
   $('#fifth').html(snippet);
   var i = 0;
+  var keyHit = 0
+  //KEYPRESS ACTIONS
   $('body').keypress(function(event) {
-    $('#fifth').hide();
     var selector = snippet[i];
     var end = snippet.length;
     var typed = snippet.slice(0,i);
-    var toDo = snippet.slice(i+1,end)
-
-    //checks one to the other
+    var toDo = snippet.slice(i+1,end);
+    $('#fifth').hide();
+    //KEY HIT CONDITIONALS/ACTIONS
     if(String.fromCharCode(event.which)!==snippet[i-1]) {
-    alert()
-    }
-
+      var error = "  X  ";
+      $("#sixth p").append(error);
+      keyHit+= 2;
+    };
+    
+    //RENDER SPANS ON EACH KEY
     $('#selector').html(selector);
     $('#typed').html(typed);
     $('#toDo').html(toDo)
     i++;
 
-    if(toDo == 0){
+    //END OF LINE - SO DO THIS STUFF:
+    if(snippet[snippet.length] === selector){
+      console.log('selector reached end...')
+
+      //CREATE LINE CHART
+      var canvas = $("#myChart").get(0);
+      var ctx = canvas.getContext("2d");
+      ctx.width = canvas.width = 820;
+      ctx.height = canvas.height = 155;
+      var config = {
+        datasets : [
+          {
+            fillColor : "rgba(220,20,20,0.5)",
+            strokeColor : "rgba(220,20,20,1)",
+            pointColor : "rgba(220,20,20,1)",
+            pointStrokeColor : "#fff",
+            data : data
+          },
+          {
+            fillColor : "rgba(111,147,220,0.5)",
+            strokeColor : "rgba(111,147,220,1)",
+            pointColor : "rgba(111,147,220,1)",
+            pointStrokeColor : "#fff",
+            data : data //push new value of time stamp/1000
+          }
+        ]
+      };
+
+      //RECORD THE TIME STAMP SCORE
       var stop = $.now();
-      var result = stop - timeStart;
-
-      //stop the result caching condition.(return?)
+      var result = (stop - timeStart)/1000;
       console.log(result)
+      console.log(keyHit)
+      //POST SCORE INTO DATA AS NEXT:
+      data.push(result);
+      console.log(data, 'dp')
+      labels.push("Run " + 1)
+      dataPenalty.push(keyHit);
+      config.datasets[0].data = data;
+      config.datasets[1].data = dataPenalty;
+      config.labels = labels;
 
-      $(document).ready(function(){
-        var plot1 = $.jqplot ('chart1', [[3,7,9,1,4,6,8,2,5]]);
-        $('body').append(plot1)
-      });
+      //ISTANTIATE CHART
+      var myNewChart = new Chart(ctx).Line(config,options);
     };
   });
 });

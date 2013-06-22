@@ -10,8 +10,8 @@ body {
 }
 
 #typed {
-  color: #0F4DA8;
-  background: #DEEAFC;
+  color: rgba(111,147,220,1);
+  background: rgba(111,147,220,0.5);
   font-style: bold;
 }
 
@@ -20,6 +20,7 @@ body {
   background: #FFEBDD;
 }
 
-#wrong{
-  background: #FF6666;
+#sixth p{
+  color: #FF6666;
+  font-style: italic;
 }
