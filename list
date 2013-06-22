@@ -1,29 +1,24 @@
-//everytime I click the button after session,
-it doubles the depth in the charting, and increases constant.
-
-//reset penalties each time. 
-//how to remove the off by one at start.
-//how to open a new piece when ready.
-or do line by line.
-
-
 
 BUGS:
-.number of errors increases after first function fires.
+(removes 1st delay)
 
-stop iterating when a letter is wrongly typed.
+chart doubles and activates after last typed key.
 
 TODO:
-make the code 2.0 far better and functionality expertise!
-  then concerned about bugs and further functionality.
+remove click feature to be only space bar.
+remove buttons
 
-organize and clean up the interface.
-- bootstrap?
-- divs with alignments.
-- put new text after the session completes.
-- change colors to be in harmony with theme
-- change size of fonts and containers
-- does not reset after each(errors cummulate), time adds too. maybe redifine it.
+chart when line is complete,
+then append a new line to snippet.
+
+center divs and chart.
+place into a bigger div.
+
+reset values after completed----
+
+
+
+
 
 LEARNED:
 when using blocks they are not sensitive to spacing in the dom.

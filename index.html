@@ -1,7 +1,6 @@
 <html>
 <head>
   <script src="library/HandleBars.js"></script>
-
   <script src="library/jquery.js"></script>
   <script src="library/underscore.js"></script>
   <script src="library/backbone.js"></script>
@@ -12,7 +11,7 @@
 <body>
   <title>The Typist</title>
   <canvas id="myChart"></canvas>
-    <div id="start"><button id="beginning">click to view your challenge</button><button id="next">click for your next challenge...</button>
+    <div id="start">
       <span id="first"></span></div>
       <div id="spaceBar"></div>
     <div id="go"><span id="typed"></span><span id="selector"></span><span id="toDo"></span></div>
@@ -25,49 +24,50 @@ var data = [0];
 var dataPenalty = [0];
 var labels = ["Start"];
 var penalty = 5;
-//CLICK TO BEGIN
-$('#beginning').click(function() {
+
   $('#spaceBar').html("press space bar to begin!")
-  $('#sixth p').html("Penalties...")
 
   var timeStart = $.now();
-  var snippet = "var mode = func(params) {}; mode() if(object.arr[0] === 'turnary'){}";
-  var snippet2 = "hHh"
-
-  //START WITH DEFAULT TEXT
-  // $('#selector').html(selector);
-  //   $('#typed').html(typed);
-  //   $('#toDo').html(toDo)
-  $('#fifth').html(snippet);
+  var snippet = "var4";
+  var snippet2 = "hH"
   var i = 0;
   var keyHit = 0
   //KEYPRESS ACTIONS
   $('body').keypress(function(event) {
-    var selector = snippet[i];
+    $('#spaceBar').hide("press space bar to begin!")
+    console.log(i, snippet[i])
+    var selector = (i < snippet.length) ? snippet[i] : '';
     var end = snippet.length;
     var typed = snippet.slice(0,i);
-    var toDo = snippet.slice(i+1,end);
-    $('#fifth').hide();
+    var toDo = snippet.slice(i + 1,end);
+
     //KEY HIT CONDITIONALS/ACTIONS
     if(String.fromCharCode(event.which)!==snippet[i-1]) {
-      var error = "  X  ";
-      $("#sixth p").append(error);
-      keyHit+= 2;
-    };
+      var x = "Penalty";
+      var error = "x";
 
+        $("#sixth p").append(error);
+        keyHit+= 2;
+    };
     //RENDER SPANS ON EACH KEY
-    $('#selector').html(selector);
-    $('#typed').html(typed);
-    $('#toDo').html(toDo)
-    i++;
+    var renderText = function(){
+      // $('#selector').sethtml(with value passed in);
+      // $('#selector').gethtml(undefined);
+      // $('#selector').html(has dual functionality);
+      $('#selector').html(selector);
+      $('#typed').html(typed);
+      $('#toDo').html(toDo)
+      i++;
+    };
+    renderText();
 
     //END OF LINE - SO DO THIS STUFF:
-    if(snippet[snippet.length] === selector){
+    if(snippet[snippet.length+1] === selector){
       //CREATE LINE CHART
       var canvas = $("#myChart").get(0);
       var ctx = canvas.getContext("2d");
-      ctx.width = canvas.width = 820;
-      ctx.height = canvas.height = 155;
+      ctx.width = canvas.width = 420;
+      ctx.height = canvas.height = 125;
       //DATA
       var config = {
         datasets : [
@@ -88,6 +88,7 @@ $('#beginning').click(function() {
         ]
       };
 
+
       //RECORD THE TIME STAMP SCORE
       var stop = $.now();
       var result = (stop - timeStart)/1000;
@@ -105,16 +106,15 @@ $('#beginning').click(function() {
       //ISTANTIATE CHART
       var myNewChart = new Chart(ctx).Line(config,options);
       //RESTART GAME - with new line of text:(same score);
+      //add another snippet 2 to the snippet 1...
+      //randomize the text...
+      //generator for those items.
+      //reset values of what creates chart - ?
+      // var result = 0;
+      // var keyHit = 0;
+
     };
   });
-});
-
-// $('#next').click(function(){
-//   $('#fifth').append(snippet2);
-// }
-
-
-
 
 </script>
 </html>
