@@ -1,22 +1,9 @@
 
 BUGS:
-(removes 1st delay)
 
-chart doubles and activates after last typed key.
+values do not reset after charted
 
 TODO:
-remove click feature to be only space bar.
-remove buttons
-
-chart when line is complete,
-then append a new line to snippet.
-
-center divs and chart.
-place into a bigger div.
-
-reset values after completed----
-
-
 
 
 
