@@ -1,12 +1,8 @@
-
-var foo= 8;
 var typist = (function(){//this is where it is created. see bottom of page for invoke.
   var typist = {
     el: {
       $spaceBar: $('#spaceBar'),
       $body: $('body')
-      //,
-      // otherStuff: '#otherStuff'
     },
     data: [0],
     dataPenalty: [0],
@@ -34,16 +30,15 @@ var typist = (function(){//this is where it is created. see bottom of page for i
     },
 
     keyPressAction : function(event) {
-      typist.el.$spaceBar.hide("press space bar to begin!"); //check the scope
+      typist.el.$spaceBar.hide("press space bar to begin!");
       console.log(i, snippet[i]);
-      var selector = (i < snippet.length) ? snippet[i] : '';//always a string value?
+      var selector = (i < snippet.length) ? snippet[i] : '';
       var end = snippet.length;
       var typed = snippet.slice(0,i);
       console.log("typed",typed);
       var toDo = snippet.slice(i + 1,end);
     },
     //KEY HIT CONDITIONALS/ACTIONS
-    //3-5 lines then do find a way to balckbox it, for a clear input an output, all else is not viewable.
     keyHitCondition : function(){if(String.fromCharCode(event.which)!==snippet[i-1]) {
       var x = "Penalty";
       var error = "x";
@@ -58,15 +53,8 @@ var typist = (function(){//this is where it is created. see bottom of page for i
       $('#typed').html(typed);
       $('#toDo').html(toDo);
       return i++;
-      //or container var
-      //hidden depenbency if i++ inside and above.
     },
-
-    //make this app many times by passing many selectors:
-    //place all jquery objects as passible parameters:
-    //near start function to pass in.
-    // do || pipes for undefined... to do the actual passing in.
-
+    
     endOfLine: function() {
       if( typed.length === snippet.length){
       //CREATE LINE CHART
@@ -91,7 +79,7 @@ var typist = (function(){//this is where it is created. see bottom of page for i
           strokeColor : "rgba(111,147,220,1)",
           pointColor : "rgba(111,147,220,1)",
           pointStrokeColor : "#fff",
-          data : data //push new value of time stamp/1000
+          data : data
         }
       ]
     },
@@ -116,7 +104,6 @@ var typist = (function(){//this is where it is created. see bottom of page for i
     }
   };
 
-  return typist;//where it is called
-  // }
-  // });
-}).call(this)//where it is called, an immediatley invoked function.
+  return typist;
+ 
+}).call(this)
