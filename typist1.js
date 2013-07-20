@@ -1,4 +1,4 @@
-var typist = (function(){//this is where it is created. see bottom of page for invoke.
+var typist = (function(){
   var typist = {
     el: {
       $spaceBar: $('#spaceBar'),
@@ -9,8 +9,6 @@ var typist = (function(){//this is where it is created. see bottom of page for i
     labels: ["Start"],
     penalty:5,
     start: function(ops) {
-      // ops = ops||{}
-      //for (var key in el) {}
       if (ops && ops.el && ops.el.spaceBar) {
         this.el.$spaceBar = $(ops.spaceBar);
       }
@@ -47,7 +45,7 @@ var typist = (function(){//this is where it is created. see bottom of page for i
       }
     },
 
-    //RENDER SPANS ON EACH KEY*
+    //RENDER SPANS ON EACH KEY
     renderText : function(i){
       $('#selector').html(selector);
       $('#typed').html(typed);
