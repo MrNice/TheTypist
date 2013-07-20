@@ -1,124 +1,90 @@
 <html>
-<head>
-  <title>The Typist</title>
-  <script src="library/HandleBars.js"></script>
-  <script src="library/jquery.js"></script>
-  <script src="library/underscore.js"></script>
-  <script src="library/backbone.js"></script>
-  <script src="library/style.css" type="style"></script>
-  <link rel="stylesheet" href="library/style.css" type="text/css">
-  <script src="library/Chart.js"></script>
-</head>
-<body>
-  <canvas id="myChart"></canvas>
-    <div id="start">
-      <span id="first"></span></div>
+  <head>
+    <title>The Typist</title>
+    <script src="library/jquery.js"></script>
+    <script src="library/underscore.js"></script>
+    <script src="library/style.css" type="style"></script>
+    <link rel="stylesheet" href="library/style.css" type="text/css">
+    <script src="library/Chart.js"></script>
+  </head>
+  <body>
+    <canvas id="myChart"></canvas>
+      <div id="start">
+        <span id="first"></span></div>
       <div id="spaceBar"></div>
     <div id="go"><span id="typed"></span><span id="selector"></span><span id="toDo"></span></div>
     <div id="fifth"></div>
     <div id="sixth"><p></p></div>
-</body>
-<script>
-//create test to meaintin integrity of app.
-//immediately invoked function * google
-//define the function, then call it.
-
-
-
-
-var data = [0];
-var dataPenalty = [0];
-var labels = ["Start"];
-var penalty = 5;
-
-  $('#spaceBar').html("press any key to begin your typing challenge!")
-
-  var timeStart = $.now();
-  var snippet = "var chain = barnone";
-  var snippet2 = "hH"
-  var i = 0;
-  var keyHit = 0
-  //KEYPRESS ACTIONS
-  $('body').keypress(function(event) {
-    $('#spaceBar').hide("press space bar to begin!")
-    console.log(i, snippet[i])
-    var selector = (i < snippet.length) ? snippet[i] : '';//always a string value?
-    var end = snippet.length;
-    var typed = snippet.slice(0,i);
-    console.log("typed",typed)
-    var toDo = snippet.slice(i + 1,end);
-
-    //KEY HIT CONDITIONALS/ACTIONS
-    if(String.fromCharCode(event.which)!==snippet[i-1]) {
-      var x = "Penalty";
-      var error = "x";
-        $("#sixth p").append(error);
-        keyHit+= 2;
-    };
-    //RENDER SPANS ON EACH KEY
-    var renderText = function(){
-      // $('#selector').sethtml(with value passed in);
-      // $('#selector').gethtml(undefined);
-      // $('#selector').html(has dual functionality);
-      $('#selector').html(selector);
-      $('#typed').html(typed);
-      $('#toDo').html(toDo)
-      i++;
-    };
-    renderText();
-    //END OF LINE - SO DO THIS STUFF:
-    if( typed.length === snippet.length){
-      //CREATE LINE CHART
-      var canvas = $("#myChart").get(0);
-      var ctx = canvas.getContext("2d");
-      ctx.width = canvas.width = 420;
-      ctx.height = canvas.height = 125;
-      //DATA
-      var config = {
-        datasets : [
-          {
-            fillColor : "rgba(220,20,20,0.5)",
-            strokeColor : "rgba(220,20,20,1)",
-            pointColor : "rgba(220,20,20,1)",
-            pointStrokeColor : "#fff",
-            data : data
-          },
-          {
-            fillColor : "rgba(111,147,220,0.5)",
-            strokeColor : "rgba(111,147,220,1)",
-            pointColor : "rgba(111,147,220,1)",
-            pointStrokeColor : "#fff",
-            data : data //push new value of time stamp/1000
-          }
-        ]
+  </body>
+  <script>
+    var data = [0];
+    var dataPenalty = [0];
+    var labels = ["Start"];
+    var penalty = 5;
+    $('#spaceBar').html("press any key to begin your typing challenge!")
+    var timeStart = $.now();
+    var snippet = "How fast and accurate can you really type? Yip Yip~";
+    var i = 0;
+    var keyHit = 0;
+    
+   //keypress actions
+    $('body').keypress(function(event) {
+      $('#spaceBar').hide("press space bar to begin!")
+      console.log(i, snippet[i])
+      var selector = (i < snippet.length) ? snippet[i] : '';
+      var end = snippet.length;
+      var typed = snippet.slice(0,i);
+      console.log("typed",typed)
+      var toDo = snippet.slice(i + 1,end);
+  
+      if(String.fromCharCode(event.which)!==snippet[i-1]) {
+        var x = "Penalty";
+        var error = "x";
+          $("#sixth p").append(error);
+          keyHit+= 2;
       };
-
-
-      //RECORD THE TIME STAMP SCORE
-      var stop = $.now();
-      var result = (stop - timeStart)/1000;
-      console.log(result, "time/1000");
-      console.log(keyHit, "errors +3");
-      //POST SCORE INTO DATA AS NEXT:
-      data.push(result);
-      console.log(data, 'dp')
-      labels.push("Run " + 1)
-      dataPenalty.push(keyHit);
-      config.datasets[0].data = data;
-      config.datasets[1].data = dataPenalty;
-      config.labels = labels;
-
-      //ISTANTIATE CHART
-      var myNewChart = new Chart(ctx).Line(config,options);
-      //RESTART GAME - with new line of text:(same score);
-      //add another snippet 2 to the snippet 1...
-      //randomize the text...
-      //generator for those items.
-      //reset values of what creates chart - ?
-      // var result = 0;
-      // var keyHit = 0;
-
-    }
-  });
-</script>
+      
+      //renders to dom
+        $('#selector').html(selector);
+        $('#typed').html(typed);
+        $('#toDo').html(toDo)
+        i++;
+  
+      //completed results
+      if( typed.length === snippet.length){
+        var canvas = $("#myChart").get(0);
+        var ctx = canvas.getContext("2d");
+        ctx.width = canvas.width = 420;
+        ctx.height = canvas.height = 125;
+        var config = {
+          datasets : [
+            {
+              fillColor : "rgba(220,20,20,0.5)",
+              strokeColor : "rgba(220,20,20,1)",
+              pointColor : "rgba(220,20,20,1)",
+              pointStrokeColor : "#fff",
+              data : data
+            },
+            {
+              fillColor : "rgba(111,147,220,0.5)",
+              strokeColor : "rgba(111,147,220,1)",
+              pointColor : "rgba(111,147,220,1)",
+              pointStrokeColor : "#fff",
+              data : data
+            }
+          ]
+        };
+        var stop = $.now();
+        var result = (stop - timeStart)/1000;
+        data.push(result);
+        labels.push("Run " + 1)
+        dataPenalty.push(keyHit);
+        config.datasets[0].data = data;
+        config.datasets[1].data = dataPenalty;
+        config.labels = labels;
+  
+        var myNewChart = new Chart(ctx).Line(config,options)
+      }
+    });
+  </script>
 </html>
